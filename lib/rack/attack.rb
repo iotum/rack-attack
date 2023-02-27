@@ -124,7 +124,9 @@ module Rack
         end
       else
         configuration.tracked?(request)
-        @app.call(env)
+        status, headers, response = @app.call(env)
+        configuration.blocklisted?(request, status)
+        [status, headers, response]
       end
     end
   end

@@ -81,9 +81,9 @@ module Rack
           @safelists.any? { |_name, safelist| safelist.matched_by?(request) }
       end
 
-      def blocklisted?(request)
+      def blocklisted?(request, status = nil)
         @anonymous_blocklists.any? { |blocklist| blocklist.matched_by?(request) } ||
-          @blocklists.any? { |_name, blocklist| blocklist.matched_by?(request) }
+          @blocklists.any? { |_name, blocklist| blocklist.matched_by?(request, status) }
       end
 
       def throttled?(request)
